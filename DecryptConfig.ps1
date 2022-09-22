@@ -13,8 +13,15 @@ if(![System.IO.File]::Exists($filename)){
 
 $fileContent = [System.IO.File]::ReadAllBytes($filename);
 # Keys from https://pastebin.com/JbZjygY3  https://hg658c.wordpress.com/
-[byte[]] $aesKeyBytes = 26, 170, 180, 167, 48, 178, 62, 31, 200, 161, 213, 156, 121, 40, 58, 34, 139, 120, 65, 14, 204, 70, 250, 79, 72, 235, 20, 86, 226, 76, 91, 137
-[byte[]] $aesIvBytes = 209, 254, 117, 18, 50, 92, 87, 19, 211, 98, 211, 50, 175, 163, 100, 76
+# this Key & IV worked for previous versions of firmware (prior to 16V100R001C206B026), including Spark & BigPipe branded HG659b, and Huawei branded HG659
+#[byte[]] $aesKeyBytes = 26, 170, 180, 167, 48, 178, 62, 31, 200, 161, 213, 156, 121, 40, 58, 34, 139, 120, 65, 14, 204, 70, 250, 79, 72, 235, 20, 86, 226, 76, 91, 137
+#[byte[]] $aesIvBytes = 209, 254, 117, 18, 50, 92, 87, 19, 211, 98, 211, 50, 175, 163, 100, 76
+# updated Key & IV for Vodafone NZ HG659 / iPrimus AU HG659 with firmware 16V100R001C206B026
+# Credit to @MeatyBytes https://github.com/Serivy/HG659-VOIP-Password/issues/2#issuecomment-1207450786
+[byte[]] $aesKeyBytes = 111,71,150,7,247,166,98,178,107,239,145,142,36,34,149,182,73,231,23,237,132,216,12,148,79,160,170,154,38,54,63,135
+[byte[]] $aesIvBytes = 196,131,104,254,2,139,169,46,131,21,78,58,177,92,203,120
+
+
 
 $symmetricKey = New-Object System.Security.Cryptography.RijndaelManaged
 $symmetricKey.set_Padding([System.Security.Cryptography.PaddingMode]::None);
